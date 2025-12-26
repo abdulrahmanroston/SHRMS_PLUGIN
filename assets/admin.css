@@ -1,0 +1,406 @@
+/* SHRMS Admin Styles */
+
+/* Stats Grid */
+.shrms-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.shrms-stat-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid #0073aa;
+    transition: transform 0.2s;
+}
+
+.shrms-stat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.shrms-stat-card h3 {
+    margin: 0 0 15px 0;
+    color: #666;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.stat-value {
+    font-size: 42px;
+    font-weight: bold;
+    color: #0073aa;
+    line-height: 1;
+}
+
+/* Quick Actions */
+.shrms-quick-actions {
+    margin: 30px 0;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.shrms-quick-actions h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.shrms-quick-actions .button {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+/* Status Badges */
+.status-active,
+.status-present {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.status-inactive,
+.status-absent {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+.status-suspended,
+.status-late {
+    color: #ffb900;
+    font-weight: 600;
+}
+
+.status-pending {
+    color: #0073aa;
+    font-weight: 600;
+}
+
+.status-paid,
+.status-approved {
+    color: #46b450;
+    font-weight: 600;
+}
+
+.status-unpaid,
+.status-rejected {
+    color: #dc3232;
+    font-weight: 600;
+}
+
+/* Table Enhancements */
+.wp-list-table th {
+    font-weight: 600;
+}
+
+.wp-list-table td {
+    vertical-align: middle;
+}
+
+/* Form Improvements */
+.form-table th {
+    width: 200px;
+}
+
+.regular-text {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Loading Spinner */
+.shrms-loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(0,115,170,0.2);
+    border-radius: 50%;
+    border-top-color: #0073aa;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsive */
+@media (max-width: 782px) {
+    .shrms-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-value {
+        font-size: 32px;
+    }
+}
+
+/* Modal Dialog */
+.shrms-modal {
+    display: none;
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.shrms-modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.shrms-modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.shrms-modal-close:hover {
+    color: #000;
+}
+
+/* Pay Salary Button */
+.shrms-pay-salary {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%) !important;
+    border: none !important;
+    color: white !important;
+    font-weight: 600 !important;
+    transition: all 0.3s !important;
+}
+
+.shrms-pay-salary:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.4) !important;
+}
+
+.shrms-pay-salary:disabled {
+    background: #ccc !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* Integration Status Badge */
+.integration-status {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.integration-status.ready {
+    background: #d4edda;
+    color: #155724;
+}
+
+.integration-status.not-ready {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+/* ============================================
+   ATTENDANCE STYLES
+   ============================================ */
+
+/* Attendance Page Enhancements */
+.attendance-status-select {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.attendance-status-select:focus {
+    border-color: #0073aa;
+    outline: none;
+    box-shadow: 0 0 0 1px #0073aa;
+}
+
+.attendance-time-input {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.attendance-time-input:focus {
+    border-color: #0073aa;
+    outline: none;
+    box-shadow: 0 0 0 1px #0073aa;
+}
+
+/* Report Cards */
+.shrms-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+
+.shrms-card h2 {
+    margin-top: 0;
+    color: #0073aa;
+    border-bottom: 2px solid #0073aa;
+    padding-bottom: 10px;
+}
+
+.shrms-card h3 {
+    color: #666;
+    font-size: 16px;
+    margin: 25px 0 15px 0;
+}
+
+/* Stats Grid for Reports */
+.shrms-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.shrms-stats-grid > div {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s;
+}
+
+.shrms-stats-grid > div:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Attendance Table Enhancements */
+table.wp-list-table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+table.wp-list-table td input[type="time"],
+table.wp-list-table td input[type="text"],
+table.wp-list-table td select {
+    margin: 0;
+}
+
+/* Status Colors */
+.status-present {
+    color: #46b450;
+    font-weight: 700;
+}
+
+.status-late {
+    color: #ffb900;
+    font-weight: 700;
+}
+
+.status-absent {
+    color: #dc3232;
+    font-weight: 700;
+}
+
+.status-half_day {
+    color: #00a0d2;
+    font-weight: 700;
+}
+
+.status-holiday {
+    color: #826eb4;
+    font-weight: 700;
+}
+
+/* Quick Actions Bar */
+.shrms-quick-actions {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border-left: 4px solid #0073aa;
+}
+
+.shrms-quick-actions h3 {
+    margin: 0 0 15px 0;
+    color: #0073aa;
+    font-size: 16px;
+}
+
+.shrms-quick-actions .button {
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 782px) {
+    .shrms-stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .shrms-card {
+        padding: 15px;
+    }
+    
+    table.wp-list-table td input,
+    table.wp-list-table td select {
+        font-size: 14px;
+    }
+}
+
+/* Loading Animation for Attendance */
+.shrms-attendance-loading {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #0073aa;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.6s linear infinite;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+/* Highlight today's date */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+input[type="date"]:hover::-webkit-calendar-picker-indicator {
+    background-color: #f0f0f0;
+}
+
+/* Print Styles for Reports */
+@media print {
+    .wrap > h1 .page-title-action,
+    form[method="get"],
+    .shrms-quick-actions,
+    .button {
+        display: none !important;
+    }
+    
+    .shrms-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    table.wp-list-table {
+        border: 1px solid #ddd;
+    }
+}
+
