@@ -1,14 +1,16 @@
 <?php
 /**
  * Plugin Name: SHRMS - Staff & HR Management System
- * Plugin URI: https://abdulrahmanroston.com/shrms
+ * Plugin URI: https://github.com/abdulrahmanroston/SHRMS_PLUGIN
  * Description: Complete HR management system with simplified payroll, attendance tracking, and accounting integration
  * Version: 3.0.0
  * Author: Abdulrahman Roston
- * Author URI: https://abdulrahmanroston.com
+ * Author URI: https://github.com/abdulrahmanroston
  * Text Domain: shrms
  * Requires PHP: 7.4
  * Requires at least: 5.8
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
 
 // Prevent direct access
@@ -26,6 +28,29 @@ define('SHRMS_API_NAMESPACE', 'shrms/v1');
 // Token secret - will be properly set after WordPress loads
 if (!defined('SHRMS_TOKEN_SECRET')) {
     define('SHRMS_TOKEN_SECRET', 'shrms-secret-key-2025-' . AUTH_KEY);
+}
+
+// ==================== Plugin Update Checker ====================
+
+/**
+ * Setup automatic updates from GitHub Releases
+ */
+if (file_exists(SHRMS_PATH . 'includes/plugin-update-checker-master/plugin-update-checker.php')) {
+    require SHRMS_PATH . 'includes/plugin-update-checker-master/plugin-update-checker.php';
+    
+    use YahnisElsts\PluginUpdateChecker\v5\PucFactory;
+    
+    $shrmsUpdateChecker = PucFactory::buildUpdateChecker(
+        'https://github.com/abdulrahmanroston/SHRMS_PLUGIN/',
+        __FILE__,
+        'shrms'
+    );
+    
+    // Set the branch that contains stable releases
+    $shrmsUpdateChecker->setBranch('main');
+    
+    // Enable release assets for proper ZIP downloads
+    $shrmsUpdateChecker->getVcsApi()->enableReleaseAssets();
 }
 
 /**
