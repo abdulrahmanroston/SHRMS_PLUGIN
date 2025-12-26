@@ -1,0 +1,85 @@
+name: Create Plugin Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'shrms.php'
+
+jobs:
+  release:
+    name: Create Release & Build ZIP
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Extract version from shrms.php
+        id: get_version
+        run: |
+          VERSION=$(grep -oP "Version:\s*\K[0-9.]+" shrms.php)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION"
+
+      - name: Check if tag exists
+        id: check_tag
+        run: |
+          if git rev-parse "v${{ steps.get_version.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Release Tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git tag -a "v${{ steps.get_version.outputs.version }}" -m "Release version ${{ steps.get_version.outputs.version }}"
+          git push origin "v${{ steps.get_version.outputs.version }}"
+
+      - name: Build plugin ZIP
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          mkdir -p build
+          rsync -av --exclude='.git' \
+                    --exclude='.github' \
+                    --exclude='build' \
+                    --exclude='node_modules' \
+                    --exclude='.gitignore' \
+                    --exclude='.env' \
+                    . build/shrms-plugin/
+          cd build
+          zip -r shrms-plugin-v${{ steps.get_version.outputs.version }}.zip shrms-plugin/
+
+      - name: Create GitHub Release
+        if: steps.check_tag.outputs.exists == 'false'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.get_version.outputs.version }}
+          name: SHRMS Plugin v${{ steps.get_version.outputs.version }}
+          body: |
+            ## What's Changed
+            Check [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md) for details.
+            
+            ## Installation
+            1. Download `shrms-plugin-v${{ steps.get_version.outputs.version }}.zip`
+            2. Upload to WordPress → Plugins → Add New
+            3. Activate the plugin
+            
+            ## Requirements
+            - WordPress 5.8+
+            - PHP 7.4+
+          files: |
+            build/shrms-plugin-v${{ steps.get_version.outputs.version }}.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Skip - Tag already exists
+        if: steps.check_tag.outputs.exists == 'true'
+        run: |
+          echo "Tag v${{ steps.get_version.outputs.version }} already exists. Skipping release."
